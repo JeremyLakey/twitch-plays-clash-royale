@@ -14,7 +14,9 @@ def setup_token():
     auth_token = r.json()
     return auth_token
 
+def getConfig(s):
+    global conf
+    return conf[s]
 
 if __name__ == "__main__":
-    print(r)
     print(auth_token)
