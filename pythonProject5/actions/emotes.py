@@ -1,6 +1,52 @@
 import pyautogui
 import time
 
+last_emote_time: float = time.time()
+
+
+def maybe_emote(content):
+    global last_emote_time
+    if (time.time() - last_emote_time) > 3:
+        if content == "emote 1":
+            emote_1()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 2":
+            emote_2()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 3":
+            emote_3()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 4":
+            emote_4()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 5":
+            emote_5()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 6":
+            emote_6()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 7":
+            emote_7()
+            last_emote_time = time.time()
+            return True
+
+        elif content == "emote 8":
+            emote_8()
+            last_emote_time = time.time()
+            return True
+
 # emote button
 # Point(x=706, y=895)
 

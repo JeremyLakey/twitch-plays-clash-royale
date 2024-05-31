@@ -1,31 +1,20 @@
-import pyautogui
-import time
+from actions.emotes import maybe_emote
+from twitchio import Message
+from util.twitch import start_bot
 
-from actions.emotes import *
+
+model = None
+
 
 def main():
-    while True:
-        time.sleep(2)
-        print(pyautogui.position())
+    print("Hmmmm..")
 
-def main2():
-    while True:
-        time.sleep(2)
-        emote_1()
-        time.sleep(2)
-        emote_2()
-        time.sleep(2)
-        emote_3()
-        time.sleep(2)
-        emote_4()
-        time.sleep(2)
-        emote_5()
-        time.sleep(2)
-        emote_6()
-        time.sleep(2)
-        emote_7()
-        time.sleep(2)
-        emote_8()
+def broadcast(message: Message):
+    print(message.author.name + ": " + message.content)
+    if maybe_emote(message.content):
+        return
 
 
-main2()
+if __name__ == "__main__":
+    start_bot(main, broadcast)
+
