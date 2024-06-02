@@ -9,3 +9,4 @@ def click_image(file):
         location.center
         return True
     except:
+        return False

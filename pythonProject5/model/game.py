@@ -1,5 +1,5 @@
 from twitchio import Message
-import time
+from actions.play import play_card
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 
@@ -18,7 +18,8 @@ class Game:
         self.cardPositions = {}     # used to evaluate most voted position for card
         self.user_submitted = {}    # prevent spam
         self.totalCommands = 0      # used to evaluate percentages for waiting command
-        self.battleWait = 0         # used to decrement until next command. Each 1 is an action tick (.5 seconds)
+        self.battleWait = 0
+        self.wait = 0 # used to decrement until next command. Each 1 is an action tick (.5 seconds)
         if debug:
             self.all_messages = []
 
@@ -34,24 +35,39 @@ class Game:
         self.user_submitted[message.author] = True
 
 
+    def reset_commands(self, wait=0):
+        self.commands = {}
+        self.cardPositions = {}
+        self.totalCommands = 0
+        self.user_submitted = {}
+        self.battleWait = 0
+        self.wait = wait
 
 
+    def do_action(self):
+        if self.wait > 0:
+            self.wait -= 1
+            return
 
-    def select_action(self):
         if self.mode == "main":
             return self.main_select_action()
 
         elif self.mode == "battle":
-            return self.main_select_action()
+            card, pos = self.battle_select_action()
+            while card is not None:
+                if play_card(card, pos):
+                    self.reset_commands()
+                    return
+                card, pos = self.battle_select_action()
 
         elif self.mode == "edit-deck":
-            return self.edit_deck_select_action()
+            self.edit_deck_select_action()
 
         elif self.mode == "upgrade-card":
-            return self.upgrade_card_select_action()
+            self.upgrade_card_select_action()
 
         elif self.mode == "shop":
-            return self.shop_select_action()
+            self.shop_select_action()
 
         return "implement mode"
 
@@ -71,8 +87,33 @@ class Game:
 
     def battle_select_action(self):
         if "wait" in self.commands:
-
             self.battleWait += 1
+            waitLimit = min(.5, (self.battleWait * 5) / 100)
+            waitRaito = self.commands["wait"]/self.totalCommands
+            if waitRaito > waitLimit:
+                return None, None
+
+            self.commands["wait"] = 0
+
+        bsf = 0 # best so far
+        card = None
+        for key in self.commands:
+            if self.commands[key] > bsf:
+                bsf = self.commands[key]
+                card = key
+
+        # get most voted for position for card
+        bsf = 0
+        pos = None
+        for key in self.cardPositions[card]:
+            if self.cardPositions[card][key] > bsf:
+                bsf = self.cardPositions[card][key]
+                pos = key
+
+        self.commands[card] = 0 # if cannot play card, we will look for the second best thing
+        if pos is None:
+            pos = "c" # assume we play in the back
+        return card, pos
 
 
     def edit_deck_select_action(self):
