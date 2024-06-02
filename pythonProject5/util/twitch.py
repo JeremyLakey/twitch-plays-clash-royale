@@ -26,6 +26,8 @@ def start_bot(main, broadcast):
     bot.run()
 
 
+BOT_NAME = ""
+
 # https://twitchio.dev/en/stable/twitchio.html#twitchio.Client.event_message
 class Bot(Client):
 
@@ -42,8 +44,10 @@ class Bot(Client):
         print("Here we go")
         print(f'Logged in as')
         print(f'User id is | {self.user_id}')
+        await self.connected_channels[0].send("Hello, bot now connected")
 
     async def event_message(self, message: Message):
-        self.broadcast(message)
+        if message.author.name.lower() != BOT_NAME:
+            self.broadcast(message)
 
 
