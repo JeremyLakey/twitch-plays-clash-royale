@@ -1,8 +1,18 @@
 from values.cards import validate_card_name
 
 
+def edit_deck_command(card, slot):
+    print("Implement edit deck command")
+    return False
+
+
 def parse_edit_command(content: str):
+
+    if content == "skip":
+        return content, None
+
     c = content.split(" ")
+
     if len(c) == 1:
         return validate_card_name(content), None
     elif len(c) == 2:

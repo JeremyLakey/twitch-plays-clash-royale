@@ -1,5 +1,6 @@
 from twitchio import Message
 from actions.play import play_card
+from actions.edit import edit_deck_command
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 
@@ -61,7 +62,13 @@ class Game:
                 card, pos = self.battle_select_action()
 
         elif self.mode == "edit-deck":
-            self.edit_deck_select_action()
+            card, slot = self.edit_deck_select_action()
+            while card is not None:
+                if edit_deck_command(card, slot):
+                    self.reset_commands()
+                    return
+                card, slot = self.edit_deck_select_action()
+            self.reset_commands()
 
         elif self.mode == "upgrade-card":
             self.upgrade_card_select_action()
@@ -117,6 +124,30 @@ class Game:
 
 
     def edit_deck_select_action(self):
+        if "skip" in self.commands:
+            skipRaito = self.commands["skip"]/self.totalCommands
+            if skipRaito > .3:
+                return None, None
+
+        bsf = 0 # best so far
+        card = None
+        for key in self.commands:
+            if self.commands[key] > bsf:
+                bsf = self.commands[key]
+                card = key
+
+        # get most voted for position for card
+        bsf = 0
+        slot = None
+        for key in self.cardPositions[card]:
+            if self.cardPositions[card][key] > bsf:
+                bsf = self.cardPositions[card][key]
+                slot = key
+
+        self.commands[card] = 0 # if cannot play card, we will look for the second best thing
+        if slot is None:
+            slot = "c" # assume we play in the back
+        return card, slot
 
 
     def upgrade_card_select_action(self):
