@@ -1,6 +1,9 @@
 from twitchio import Message
-from actions.play import play_card
-from actions.edit import edit_deck_command
+from actions.play import play_card, parse_play_command
+from actions.edit import edit_deck_command, parse_edit_command
+from actions.upgrade import upgrade_card_command, parse_upgrade_command
+from actions.menu import parse_menu_command, do_menu_command
+from actions.shop import parse_shop_command, do_shop_command
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 
@@ -24,7 +27,6 @@ class Game:
         if debug:
             self.all_messages = []
 
-
     def receive_message(self, message: Message):
         print(message.author + ": " + message.content)
         if self.debug:
@@ -35,6 +37,58 @@ class Game:
 
         self.user_submitted[message.author] = True
 
+        if self.mode == "main":
+            result = parse_menu_command(message.content)
+
+        elif self.mode == "battle":
+            card, pos = parse_play_command(message.content)
+            if card is not None:
+                if card in self.commands:
+                    self.commands[card] += 1
+                else:
+                    self.commands = 1
+                if pos is not None:
+                    if card in self.cardPositions:
+                        if pos in self.cardPositions[card]:
+                            self.cardPositions[card][pos] += 1
+                        else:
+                            self.cardPositions[card][pos] = 1
+                    else:
+                        self.cardPositions[card] = {}
+                        self.cardPositions[card][pos] = 1
+
+        elif self.mode == "edit-deck":
+            card, slot = parse_edit_command(message.content)
+            if card is not None:
+                if card in self.commands:
+                    self.commands[card] += 1
+                else:
+                    self.commands = 1
+                if slot is not None:
+                    if card in self.cardPositions:
+                        if slot in self.cardPositions[card]:
+                            self.cardPositions[card][slot] += 1
+                        else:
+                            self.cardPositions[card][slot] = 1
+                    else:
+                        self.cardPositions[card] = {}
+                        self.cardPositions[card][slot] = 1
+
+        elif self.mode == "upgrade-card":
+            card = parse_upgrade_command(message.content)
+            if card is not None:
+                if card in self.commands:
+                    self.commands[card] += 1
+                else:
+                    self.commands = 1
+
+        elif self.mode == "shop":
+            command = parse_shop_command(message.content)
+            if command is not None:
+                if command in self.commands:
+                    self.commands[command] += 1
+                else:
+                    self.commands = 1
 
     def reset_commands(self, wait=0):
         self.commands = {}
@@ -43,7 +97,6 @@ class Game:
         self.user_submitted = {}
         self.battleWait = 0
         self.wait = wait
-
 
     def do_action(self):
         if self.wait > 0:
@@ -71,14 +124,22 @@ class Game:
             self.reset_commands()
 
         elif self.mode == "upgrade-card":
-            self.upgrade_card_select_action()
+            command = self.shop_select_action()
+            while command is not None:
+                if upgrade_card_command(command):
+                    self.reset_commands()
+                    return
+                command = self.shop_select_action()
 
         elif self.mode == "shop":
-            self.shop_select_action()
+            command = self.shop_select_action()
+            while command is not None:
+                if do_shop_command(command):
+                    self.reset_commands()
+                    return
+                command = self.shop_select_action()
 
         return "implement mode"
-
-
 
     # returns the command
     def main_select_action(self):
@@ -90,7 +151,6 @@ class Game:
                 v = key
         self.commands[v] = 0
         return v
-
 
     def battle_select_action(self):
         if "wait" in self.commands:
@@ -149,9 +209,23 @@ class Game:
             slot = "c" # assume we play in the back
         return card, slot
 
-
     def upgrade_card_select_action(self):
+        bsf = 0  # best so far
+        card = None
+        for key in self.commands:
+            if self.commands[key] > bsf:
+                bsf = self.commands[key]
+                card = key
 
+        return card
 
     def shop_select_action(self):
+        bsf = 0  # best so far
+        command = None
+        for key in self.commands:
+            if self.commands[key] > bsf:
+                bsf = self.commands[key]
+                command = key
+
+        return command
 
