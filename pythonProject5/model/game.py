@@ -1,12 +1,14 @@
+import pyautogui
 from twitchio import Message
 from actions.play import play_card, parse_play_command
 from actions.edit import edit_deck_command, parse_edit_command
 from actions.upgrade import upgrade_card_command, parse_upgrade_command
 from actions.menu import parse_menu_command, do_menu_command
 from actions.shop import parse_shop_command, do_shop_command
+from util.click import image_found, click_image, click_safespot
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
-
+MAIN_MENU_WAIT = 20
 
 class Game:
     """
@@ -24,6 +26,7 @@ class Game:
         self.totalCommands = 0      # used to evaluate percentages for waiting command
         self.battleWait = 0
         self.wait = 0 # used to decrement until next command. Each 1 is an action tick (.5 seconds)
+        self.loading_screen = False
         if debug:
             self.all_messages = []
 
@@ -103,10 +106,27 @@ class Game:
             self.wait -= 1
             return
 
+        if self.loading_screen:
+            if image_found("./images/menu-swords.png", confidence=.6):
+                self.loading_screen = False
+                self.reset_commands(MAIN_MENU_WAIT)
+                self.mode = "main"
+            else:
+                click_safespot()
+                return
+
         if self.mode == "main":
+            if not image_found("./images/menu-swords.png", confidence=.6):
+                click_safespot()
+
             return self.main_select_action()
 
         elif self.mode == "battle":
+            if image_found("./images/ok.png", confidence=.7):
+                self.loading_screen = True
+                self.reset_commands(MAIN_MENU_WAIT)
+                self.mode = "main"
+                click_image("./images/ok.png", confidence=.7)
             card, pos = self.battle_select_action()
             while card is not None:
                 if play_card(card, pos):
