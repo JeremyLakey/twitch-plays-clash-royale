@@ -10,6 +10,7 @@ from util.click import image_found, click_image, click_safespot
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 MAIN_MENU_WAIT = 20
 
+
 class Game:
     """
     Function
@@ -118,15 +119,19 @@ class Game:
         if self.mode == "main":
             if not image_found("./images/menu-swords.png", confidence=.6):
                 click_safespot()
+                return
 
-            return self.main_select_action()
+            do_menu_command(self.main_select_action(), self)
 
         elif self.mode == "battle":
             if image_found("./images/ok.png", confidence=.7):
+                # battle is over
                 self.loading_screen = True
                 self.reset_commands(MAIN_MENU_WAIT)
                 self.mode = "main"
                 click_image("./images/ok.png", confidence=.7)
+                return
+
             card, pos = self.battle_select_action()
             while card is not None:
                 if play_card(card, pos):
