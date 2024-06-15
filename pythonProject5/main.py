@@ -12,7 +12,7 @@ def main():
 
 
 def broadcast(message: Message):
-    print(message.author.name + ": " + message.content)
+    # print(message.author.name + ": " + message.content)
     if maybe_emote(message.content):
         return
     model.receive_message(message)

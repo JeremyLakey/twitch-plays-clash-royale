@@ -5,6 +5,7 @@ from actions.edit import edit_deck_command, parse_edit_command
 from actions.upgrade import upgrade_card_command, parse_upgrade_command
 from actions.menu import parse_menu_command, do_menu_command
 from actions.shop import parse_shop_command, do_shop_command
+from actions.blueStacks import toggle_controls_hints, is_showing_controls
 from util.click import image_found, click_image, click_safespot
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
@@ -26,8 +27,9 @@ class Game:
         self.user_submitted = {}    # prevent spam
         self.totalCommands = 0      # used to evaluate percentages for waiting command
         self.battleWait = 0
-        self.wait = 0 # used to decrement until next command. Each 1 is an action tick (.5 seconds)
+        self.wait = 0               # used to decrement until next command. Each 1 is an action tick (.5 seconds)
         self.loading_screen = False
+        self.bot = None
         if debug:
             self.all_messages = []
 
@@ -122,6 +124,7 @@ class Game:
                 return
 
             do_menu_command(self.main_select_action(), self)
+            return
 
         elif self.mode == "battle":
             if image_found("./images/ok.png", confidence=.7):
@@ -130,6 +133,9 @@ class Game:
                 self.reset_commands(MAIN_MENU_WAIT)
                 self.mode = "main"
                 click_image("./images/ok.png", confidence=.7)
+                if is_showing_controls():
+                    toggle_controls_hints()
+
                 return
 
             card, pos = self.battle_select_action()
@@ -187,7 +193,7 @@ class Game:
 
             self.commands["wait"] = 0
 
-        bsf = 0 # best so far
+        bsf = 0  # best so far
         card = None
         for key in self.commands:
             if self.commands[key] > bsf:
@@ -202,11 +208,10 @@ class Game:
                 bsf = self.cardPositions[card][key]
                 pos = key
 
-        self.commands[card] = 0 # if cannot play card, we will look for the second best thing
+        self.commands[card] = 0  # If cannot play card, we will look for the second best thing
         if pos is None:
-            pos = "c" # assume we play in the back
+            pos = "c"  # assume we play in the back
         return card, pos
-
 
     def edit_deck_select_action(self):
         if "skip" in self.commands:
@@ -214,7 +219,7 @@ class Game:
             if skipRaito > .3:
                 return None, None
 
-        bsf = 0 # best so far
+        bsf = 0  # best so far
         card = None
         for key in self.commands:
             if self.commands[key] > bsf:
@@ -253,4 +258,8 @@ class Game:
                 command = key
 
         return command
+
+    def type_to_chat(self, s):
+        if self.bot is not None:
+            self.bot.send_to_chat(s)
 

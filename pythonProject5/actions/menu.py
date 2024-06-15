@@ -1,10 +1,12 @@
 from model.game import Game
+from actions.blueStacks import *
 import pyautogui
 
 f = open("./values/menu-buttons.txt", "r")
 shopButton = f.readline().split()
 deckButton = f.readline().split()
 battleButton = f.readline().split()
+
 
 def do_menu_command(command, model: Game):
     if command is None:
@@ -41,16 +43,28 @@ def set_up_battle(model):
 
     pyautogui.click(battleButton[0], battleButton[1])
 
+    if not is_showing_controls():
+        toggle_controls_hints()
+
+
 def set_up_edit(model):
     model.reset_commands(30)
     model.mode = "edit-deck"
 
     pyautogui.click(deckButton[0], deckButton[1])
+
+    if is_showing_controls():
+        toggle_controls_hints()
+
+
 def set_up_upgrade(model):
     model.reset_commands(30)
     model.mode = "upgrade-card"
 
     pyautogui.click(deckButton[0], deckButton[1])
+
+    if is_showing_controls():
+        toggle_controls_hints()
 
 
 def set_up_shop(model):
@@ -58,4 +72,9 @@ def set_up_shop(model):
     model.mode = "shop"
 
     pyautogui.click((shopButton[0]), shopButton[1])
+
+    if is_showing_controls():
+        toggle_controls_hints()
+
+
 
