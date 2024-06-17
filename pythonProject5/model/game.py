@@ -1,5 +1,7 @@
 import pyautogui
 from twitchio import Message
+from actions.emotes import maybe_emote
+from actions.help import maybe_help
 from actions.play import play_card, parse_play_command
 from actions.edit import edit_deck_command, parse_edit_command
 from actions.upgrade import upgrade_card_command, parse_upgrade_command
@@ -10,6 +12,7 @@ from util.click import image_found, click_image, click_safespot
 
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 MAIN_MENU_WAIT = 20
+MENU_COMMANDS_PROMPT = "Type either battle, edit, upgrade, shop"
 
 
 class Game:
@@ -37,6 +40,12 @@ class Game:
         print(message.author + ": " + message.content)
         if self.debug:
             self.all_messages.append(message)
+
+        if maybe_emote(message.content):
+            return
+
+        if maybe_help(message.content):
+            return
 
         if message.author in self.user_submitted:
             return
@@ -141,6 +150,7 @@ class Game:
             card, pos = self.battle_select_action()
             while card is not None:
                 if play_card(card, pos):
+                    self.type_to_chat("Play " + card + " at " + pos + ". " + MENU_COMMANDS_PROMPT)
                     self.reset_commands()
                     return
                 card, pos = self.battle_select_action()
@@ -149,24 +159,29 @@ class Game:
             card, slot = self.edit_deck_select_action()
             while card is not None:
                 if edit_deck_command(card, slot):
+                    self.type_to_chat("Placing " + card + " into slot " + slot + ". " + MENU_COMMANDS_PROMPT)
                     self.reset_commands()
                     return
                 card, slot = self.edit_deck_select_action()
             self.reset_commands()
 
         elif self.mode == "upgrade-card":
-            command = self.shop_select_action()
+            command = self.upgrade_card_select_action()
             while command is not None:
                 if upgrade_card_command(command):
+                    self.type_to_chat("Upgrading " + command + ". " + MENU_COMMANDS_PROMPT)
                     self.reset_commands()
                     return
-                command = self.shop_select_action()
+                command = self.upgrade_card_select_action()
 
         elif self.mode == "shop":
             command = self.shop_select_action()
             while command is not None:
                 if do_shop_command(command):
+                    self.type_to_chat("Getting " + command + ". " + MENU_COMMANDS_PROMPT)
                     self.reset_commands()
+                    self.mode == "menu"
+
                     return
                 command = self.shop_select_action()
 
@@ -187,8 +202,8 @@ class Game:
         if "wait" in self.commands:
             self.battleWait += 1
             waitLimit = min(.5, (self.battleWait * 5) / 100)
-            waitRaito = self.commands["wait"]/self.totalCommands
-            if waitRaito > waitLimit:
+            waitRatio = self.commands["wait"]/self.totalCommands
+            if waitRatio > waitLimit:
                 return None, None
 
             self.commands["wait"] = 0
@@ -215,8 +230,8 @@ class Game:
 
     def edit_deck_select_action(self):
         if "skip" in self.commands:
-            skipRaito = self.commands["skip"]/self.totalCommands
-            if skipRaito > .3:
+            skipRatio = self.commands["skip"]/self.totalCommands
+            if skipRatio > .3:
                 return None, None
 
         bsf = 0  # best so far
@@ -263,3 +278,6 @@ class Game:
         if self.bot is not None:
             self.bot.send_to_chat(s)
 
+    def whisper_to_user(self, s):
+        if self.bot is not None:
+            self.bot.send_to_chat(s)

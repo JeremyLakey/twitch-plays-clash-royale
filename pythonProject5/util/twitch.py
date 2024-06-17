@@ -52,6 +52,7 @@ class Bot(Client):
             self.broadcast(message)
 
     async def send_to_chat(self, s):
-        await self.connected_channels.send(s)
+        await self.connected_channels[0].send(s)
+
 
 

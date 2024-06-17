@@ -1,5 +1,5 @@
 
-VALID_MENU_ACTIONS = ["lightning chest", "fortune chest", "kings chest"]
+VALID_SHOP_ACTIONS = ["lightning chest", "fortune chest", "kings chest", "skip"]
 
 
 def do_shop_command(content):
@@ -8,7 +8,7 @@ def do_shop_command(content):
 
 
 def parse_shop_command(content: str):
-    if content in VALID_MENU_ACTIONS:
+    if content in VALID_SHOP_ACTIONS:
         return content
 
     if "lightning" or "lightning chest" or "lighting" or "lighting chest":

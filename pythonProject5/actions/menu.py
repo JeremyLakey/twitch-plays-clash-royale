@@ -38,6 +38,7 @@ def parse_menu_command(content: str):
 
 
 def set_up_battle(model):
+    model.type_to_chat("Starting battle. Type <card name> + <pos> to vote to plya a card. Type a \"wait\" to vote to hold off playing a card.")
     model.reset_commands(10)
     model.mode = "battle"
 
@@ -48,6 +49,8 @@ def set_up_battle(model):
 
 
 def set_up_edit(model):
+
+    model.type_to_chat("Editting deck. Type <card name> + <1-8> to vote to add the card to a slot. Type \"skip\" to vote no change.")
     model.reset_commands(30)
     model.mode = "edit-deck"
 
@@ -58,6 +61,7 @@ def set_up_edit(model):
 
 
 def set_up_upgrade(model):
+    model.type_to_chat("Upgrading card. Type <card name> to vote to upgrade a card. Type \"skip\" to vote no change.")
     model.reset_commands(30)
     model.mode = "upgrade-card"
 
@@ -68,6 +72,8 @@ def set_up_upgrade(model):
 
 
 def set_up_shop(model):
+
+    model.type_to_chat("Entering shop. Type <card name> to vote to buy a card. Type <chest name> to buy a chest. Type \"skip\" to vote no change.")
     model.reset_commands(30)
     model.mode = "shop"
 
