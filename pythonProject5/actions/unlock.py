@@ -12,7 +12,7 @@ unlockButton = f.readline().split()
 def do_unlock_command(command, model):
     if click_image("./images/open-chest.png"):
         model.loading_screen = True
-        return
+        return True
 
     if "1":
         pyautogui.click(chest1[0], chest1[1])

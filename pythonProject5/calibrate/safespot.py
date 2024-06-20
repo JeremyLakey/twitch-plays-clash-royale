@@ -7,7 +7,6 @@ def calibrate_safespot():
     pos1 = pyautogui.position()
     pyautogui.click()
 
-
     f = open("../values/safespot.txt", "w")
     f.write(str(pos1.x) + " " + str(pos1.y))
     f.close()

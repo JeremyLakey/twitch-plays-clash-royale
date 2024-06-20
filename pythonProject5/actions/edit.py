@@ -10,6 +10,7 @@ pos2 = f.readline().split()
 
 NUM_SCROLL_EDIT_ATTEMPTS = 10
 
+
 def edit_deck_command(card, slot):
     try:
         remove(slot)
