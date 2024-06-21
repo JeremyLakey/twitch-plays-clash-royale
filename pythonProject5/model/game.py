@@ -177,7 +177,7 @@ class Game:
         elif self.mode == "shop":
             command = self.shop_select_action()
             while command is not None:
-                if do_shop_command(command):
+                if do_shop_command(command, self):
                     self.type_to_chat("Getting " + command + ". " + MENU_COMMANDS_PROMPT)
                     self.reset_commands()
                     self.mode == "menu"
