@@ -13,7 +13,6 @@ def main():
 
 def broadcast(message: Message):
     # print(message.author.name + ": " + message.content)
-
     model.receive_message(message)
 
 

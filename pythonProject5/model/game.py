@@ -1,3 +1,5 @@
+import time
+
 import pyautogui
 from twitchio import Message
 from actions.emotes import maybe_emote
@@ -13,6 +15,7 @@ from util.click import image_found, click_image, click_safespot
 GAME_STATES = ["main", "battle", "edit-deck", "upgrade-card", "shop"]
 MAIN_MENU_WAIT = 20
 MENU_COMMANDS_PROMPT = "Type either battle, edit, upgrade, shop"
+BATTLE_COMMAND_PROMPT = "Play a card by typing \"<card-name> <position>\""
 
 
 class Game:
@@ -33,13 +36,16 @@ class Game:
         self.wait = 0               # used to decrement until next command. Each 1 is an action tick (.5 seconds)
         self.loading_screen = False
         self.bot = None
+        self.debug = debug
         if debug:
-            self.all_messages = []
+            self.debugFile = open("./logs/log.txt", mode="w")
+
+    def __del__(self):
+        if self.debug:
+            self.debugFile.close()
 
     def receive_message(self, message: Message):
-        print(message.author + ": " + message.content)
-        if self.debug:
-            self.all_messages.append(message)
+        self.debug_log(message.author + ": " + message.content)
 
         if maybe_emote(message.content):
             return
@@ -123,12 +129,15 @@ class Game:
                 self.loading_screen = False
                 self.reset_commands(MAIN_MENU_WAIT)
                 self.mode = "main"
+                self.debug_log("In main menu, switching to main mode")
             else:
                 click_safespot()
+                self.debug_log("Not in main menu, clicking safespot")
                 return
 
         if self.mode == "main":
             if not image_found("./images/menu-swords.png", confidence=.6):
+                self.debug_log("Not in menu, clicking safe spot")
                 click_safespot()
                 return
 
@@ -137,6 +146,7 @@ class Game:
 
         elif self.mode == "battle":
             if image_found("./images/ok.png", confidence=.7):
+                self.debug_log("battle is over")
                 # battle is over
                 self.loading_screen = True
                 self.reset_commands(MAIN_MENU_WAIT)
@@ -150,7 +160,8 @@ class Game:
             card, pos = self.battle_select_action()
             while card is not None:
                 if play_card(card, pos):
-                    self.type_to_chat("Play " + card + " at " + pos + ". " + MENU_COMMANDS_PROMPT)
+                    self.debug_log("Playing " + card + " at " + pos)
+                    self.type_to_chat("Play " + card + " at " + pos + ". " + BATTLE_COMMAND_PROMPT)
                     self.reset_commands()
                     return
                 card, pos = self.battle_select_action()
@@ -160,6 +171,7 @@ class Game:
             while card is not None:
                 if edit_deck_command(card, slot):
                     self.type_to_chat("Placing " + card + " into slot " + slot + ". " + MENU_COMMANDS_PROMPT)
+                    self.debug_log("Editting deck: " + card + " into " + slot + ".")
                     self.reset_commands()
                     return
                 card, slot = self.edit_deck_select_action()
@@ -170,6 +182,7 @@ class Game:
             while command is not None:
                 if upgrade_card_command(command):
                     self.type_to_chat("Upgrading " + command + ". " + MENU_COMMANDS_PROMPT)
+                    self.debug_log("Upgrading " + command + ".")
                     self.reset_commands()
                     return
                 command = self.upgrade_card_select_action()
@@ -179,13 +192,15 @@ class Game:
             while command is not None:
                 if do_shop_command(command, self):
                     self.type_to_chat("Getting " + command + ". " + MENU_COMMANDS_PROMPT)
+                    self.debug_log("Buying " + command + ".")
                     self.reset_commands()
                     self.mode == "menu"
 
                     return
                 command = self.shop_select_action()
 
-        return "implement mode"
+        print("Implement mode " + self.mode)
+        return
 
     # returns the command
     def main_select_action(self):
@@ -278,6 +293,6 @@ class Game:
         if self.bot is not None:
             self.bot.send_to_chat(s)
 
-    def whisper_to_user(self, s):
-        if self.bot is not None:
-            self.bot.send_to_chat(s)
+    def debug_log(self, c):
+        if self.debug:
+            self.debugFile.write(str(time.time()) + c)

@@ -4,8 +4,7 @@ from values.cards import validate_card_name
 import time
 
 
-
-NUM_SCROLL_SHOP_ATTEMPTS = 5
+NUM_SCROLL_SHOP_ATTEMPTS = 6
 VALID_SHOP_ACTIONS = ["lightning chest", "fortune chest", "kings chest", "skip"]
 
 
