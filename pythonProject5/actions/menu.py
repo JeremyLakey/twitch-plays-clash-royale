@@ -1,4 +1,3 @@
-from model.game import Game
 from actions.blueStacks import *
 import pyautogui
 
@@ -8,7 +7,7 @@ deckButton = f.readline().split()
 battleButton = f.readline().split()
 
 
-def do_menu_command(command, model: Game):
+def do_menu_command(command, model):
     if command is None:
         model.reset_commands(10)
 

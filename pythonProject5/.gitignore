@@ -1,3 +1,5 @@
 /conf
 /images
+/values/*.txt
 todo
+*.pyc

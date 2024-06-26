@@ -1,27 +1,28 @@
 import pyautogui
 import time
+from calibrate.beep import beep
 
 
 def calibrate_open_command():
     time.sleep(5)
     pos1 = pyautogui.position()
-    pyautogui.click()
+    beep()
 
     time.sleep(4)
     pos2 = pyautogui.position()
-    pyautogui.click()
+    beep()
 
     time.sleep(4)
     pos3 = pyautogui.position()
-    pyautogui.click()
+    beep()
 
     time.sleep(4)
     pos4 = pyautogui.position()
-    pyautogui.click()
+    beep()
 
     time.sleep(4)
     pos5 = pyautogui.position()
-    pyautogui.click()
+    beep()
 
     f = open("../values/chests.txt", "w")
     f.write(str(pos1.x) + " " + str(pos1.y) + "\n" + str(pos2.x) + " " + str(pos2.y) + "\n" + str(pos3.x) + " " + str(

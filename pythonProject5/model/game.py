@@ -1,6 +1,5 @@
 import time
 
-import pyautogui
 from twitchio import Message
 from actions.emotes import maybe_emote
 from actions.help import maybe_help
@@ -36,12 +35,13 @@ class Game:
         self.wait = 0               # used to decrement until next command. Each 1 is an action tick (.5 seconds)
         self.loading_screen = False
         self.bot = None
+        self.debugFile = None
         self.debug = debug
-        if debug:
-            self.debugFile = open("./logs/log.txt", mode="w")
+        if self.debug:
+            self.debugFile = open("log.txt", mode="w+")
 
     def __del__(self):
-        if self.debug:
+        if self.debug is True and self.debugFile is not None:
             self.debugFile.close()
 
     def receive_message(self, message: Message):

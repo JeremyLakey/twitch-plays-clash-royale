@@ -1,9 +1,11 @@
 import pyautogui
 import time
+from calibrate.beep import beep
 
 def get_mouse_location():
     while True:
         print(pyautogui.position())
+        beep()
         time.sleep(2)
 
 

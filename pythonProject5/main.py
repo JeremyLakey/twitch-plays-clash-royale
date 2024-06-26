@@ -2,7 +2,7 @@
 from twitchio import Message
 from util.twitch import start_bot
 from model.game import Game
-
+import time
 
 model = None
 
@@ -17,6 +17,7 @@ def broadcast(message: Message):
 
 
 if __name__ == "__main__":
+    time.sleep(5)
     model = Game(debug=True)
-    start_bot(main, broadcast)
+    start_bot(main, broadcast, model)
 

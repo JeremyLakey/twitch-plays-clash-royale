@@ -48,7 +48,7 @@ class Bot(Client):
         await self.connected_channels[0].send("Hello, bot now connected")
 
     async def event_message(self, message: Message):
-        if message.author.name.lower() != BOT_NAME:
+        if message.author and message.author.name.lower() != BOT_NAME:
             self.broadcast(message)
 
     async def send_to_chat(self, s):
