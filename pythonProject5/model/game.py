@@ -45,7 +45,7 @@ class Game:
             self.debugFile.close()
 
     def receive_message(self, message: Message):
-        self.debug_log(message.author + ": " + message.content)
+        self.debug_log(message.author.name + ": " + message.content)
 
         if maybe_emote(message.content):
             return
@@ -60,6 +60,11 @@ class Game:
 
         if self.mode == "main":
             result = parse_menu_command(message.content)
+            if result is not None:
+                if result in self.commands:
+                    self.commands[result] += 1
+                else:
+                    self.commands[result] = 1
 
         elif self.mode == "battle":
             card, pos = parse_play_command(message.content)
@@ -67,7 +72,7 @@ class Game:
                 if card in self.commands:
                     self.commands[card] += 1
                 else:
-                    self.commands = 1
+                    self.commands[card] = 1
                 if pos is not None:
                     if card in self.cardPositions:
                         if pos in self.cardPositions[card]:
@@ -84,7 +89,7 @@ class Game:
                 if card in self.commands:
                     self.commands[card] += 1
                 else:
-                    self.commands = 1
+                    self.commands[card] = 1
                 if slot is not None:
                     if card in self.cardPositions:
                         if slot in self.cardPositions[card]:
@@ -101,7 +106,7 @@ class Game:
                 if card in self.commands:
                     self.commands[card] += 1
                 else:
-                    self.commands = 1
+                    self.commands[card] = 1
 
         elif self.mode == "shop":
             command = parse_shop_command(message.content)
@@ -109,7 +114,7 @@ class Game:
                 if command in self.commands:
                     self.commands[command] += 1
                 else:
-                    self.commands = 1
+                    self.commands[command] = 1
 
     def reset_commands(self, wait=0):
         self.commands = {}
@@ -165,6 +170,7 @@ class Game:
                     self.reset_commands()
                     return
                 card, pos = self.battle_select_action()
+            return
 
         elif self.mode == "edit-deck":
             card, slot = self.edit_deck_select_action()
@@ -204,13 +210,16 @@ class Game:
 
     # returns the command
     def main_select_action(self):
+        self.debug_log("Selecting Menu action")
         m = 0
         v = None
         for key in self.commands:
             if self.commands[key] > m:
                 m = self.commands[key]
                 v = key
-        self.commands[v] = 0
+        # self.commands[v] = 0
+        if v is not None:
+            self.debug_log("Selecting: " + v)
         return v
 
     def battle_select_action(self):
@@ -229,7 +238,8 @@ class Game:
             if self.commands[key] > bsf:
                 bsf = self.commands[key]
                 card = key
-
+        if card is None:
+            return None, None
         # get most voted for position for card
         bsf = 0
         pos = None
@@ -289,10 +299,10 @@ class Game:
 
         return command
 
-    def type_to_chat(self, s):
+    async def type_to_chat(self, s):
         if self.bot is not None:
-            self.bot.send_to_chat(s)
+            await self.bot.send_to_chat(s)
 
     def debug_log(self, c):
         if self.debug:
-            self.debugFile.write(str(time.time()) + c)
+            self.debugFile.write(str(time.time()) + c + "\n")

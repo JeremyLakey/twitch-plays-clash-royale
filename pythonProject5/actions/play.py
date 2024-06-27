@@ -32,7 +32,7 @@ def parse_play_command(content: str):
     elif len(c) == 3:
         pos = validate_position(c[2])
         if pos is not None:
-            card = validate_card_name([0] + " " + c[1])
+            card = validate_card_name(c[0] + " " + c[1])
             return card, c[2]
 
     return None, None

@@ -2,15 +2,17 @@ from actions.blueStacks import *
 import pyautogui
 
 f = open("./values/menu-buttons.txt", "r")
-shopButton = f.readline().split()
-deckButton = f.readline().split()
-battleButton = f.readline().split()
+shopButton = list(map(int, f.readline().split()))
+deckButton = list(map(int, f.readline().split()))
+battleButton = list(map(int, f.readline().split()))
 
 
 def do_menu_command(command, model):
     if command is None:
-        model.reset_commands(10)
+        model.reset_commands(5)
+        return
 
+    model.debug_log("Do menu " + command)
     if command == "battle":
         set_up_battle(model)
 
