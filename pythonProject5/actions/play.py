@@ -1,18 +1,24 @@
+import time
+
 import pyautogui
 import random
 from values.cards import validate_card_name
-from values.positions import  VALID_POSITIONS
+from values.positions import VALID_POSITIONS
+import time
 
-
-def play_card(card, pos):
+async def play_card(card, pos):
     try:
-        location = pyautogui.center(pyautogui.locateOnScreen(f'./images/cards/{card}.png'))
+        print(f"Find ./images/cards/{card}.png")
+        location = pyautogui.center(pyautogui.locateOnScreen(f'./images/cards/{card}.png', confidence=.3))
         if location is not None:
-            pyautogui.click(location.x, location.y)
+            pyautogui.click(x=location.x, y=location.y)
+            time.sleep(1)
             pyautogui.press(pos)
             return True
+        print("Location is none")
         return False
-    except:
+    except Exception as e:
+        print("ERROR finding card: " + str(e))
         return False
 
 

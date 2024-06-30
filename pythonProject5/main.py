@@ -7,8 +7,8 @@ import time
 model = None
 
 
-def main():
-    model.do_action()
+async def main():
+    await model.do_action()
 
 
 def broadcast(message: Message):

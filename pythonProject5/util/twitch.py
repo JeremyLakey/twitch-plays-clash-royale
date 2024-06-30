@@ -3,13 +3,13 @@ from twitchio.client import Client
 from util.config import getConfig
 import asyncio
 
-MAIN_LOOP_DELAY = 2
+MAIN_LOOP_DELAY = .5
 
 
-def event_loop():
+async def event_loop():
     global loop, loop_main_function
-    loop_main_function()
-    loop.call_later(MAIN_LOOP_DELAY, event_loop)
+    await loop_main_function()
+    loop.call_later(MAIN_LOOP_DELAY, lambda: asyncio.create_task(   event_loop()))
 
 
 loop_main_function = None
@@ -19,7 +19,7 @@ loop = asyncio.new_event_loop()
 def start_bot(main, broadcast, model):
     global loop, loop_main_function
     loop_main_function = main
-    loop.call_later(MAIN_LOOP_DELAY, event_loop)
+    loop.call_later(MAIN_LOOP_DELAY, lambda: asyncio.create_task(event_loop()))
     bot = Bot(loop, broadcast)
     model.bot = bot
     # bot.run() is blocking and will stop execution of any below code here until stopped or closed.

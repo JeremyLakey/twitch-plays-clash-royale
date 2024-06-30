@@ -7,14 +7,14 @@ deckButton = list(map(int, f.readline().split()))
 battleButton = list(map(int, f.readline().split()))
 
 
-def do_menu_command(command, model):
+async def do_menu_command(command, model):
     if command is None:
         model.reset_commands(5)
         return
 
     model.debug_log("Do menu " + command)
     if command == "battle":
-        set_up_battle(model)
+        await set_up_battle(model)
 
     elif command == "edit":
         set_up_edit(model)
@@ -38,8 +38,8 @@ def parse_menu_command(content: str):
     return None
 
 
-def set_up_battle(model):
-    model.type_to_chat("Starting battle. Type <card name> + <pos> to vote to plya a card. Type a \"wait\" to vote to hold off playing a card.")
+async def set_up_battle(model):
+    await model.type_to_chat("Starting battle. Type <card name> + <pos> to vote to plya a card. Type a \"wait\" to vote to hold off playing a card.")
     model.reset_commands(10)
     model.mode = "battle"
 

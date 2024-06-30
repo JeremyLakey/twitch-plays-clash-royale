@@ -26,7 +26,7 @@ class Game:
     Holds logic for selecting next overarching command to run
     """
     def __init__(self, debug=False):
-        self.mode = "main"
+        self.mode = "battle"
         self.commands = {}          # used to evaluate most voted command
         self.cardPositions = {}     # used to evaluate most voted position for card
         self.user_submitted = {}    # prevent spam
@@ -59,7 +59,7 @@ class Game:
         self.user_submitted[message.author] = True
 
         if self.mode == "main":
-            result = parse_menu_command(message.content)
+            result = parse_menu_command(message.content.lower())
             if result is not None:
                 if result in self.commands:
                     self.commands[result] += 1
@@ -67,8 +67,9 @@ class Game:
                     self.commands[result] = 1
 
         elif self.mode == "battle":
-            card, pos = parse_play_command(message.content)
+            card, pos = parse_play_command(message.content.lower())
             if card is not None:
+                self.debug_log("Adding " + card)
                 if card in self.commands:
                     self.commands[card] += 1
                 else:
@@ -84,7 +85,7 @@ class Game:
                         self.cardPositions[card][pos] = 1
 
         elif self.mode == "edit-deck":
-            card, slot = parse_edit_command(message.content)
+            card, slot = parse_edit_command(message.content.lower())
             if card is not None:
                 if card in self.commands:
                     self.commands[card] += 1
@@ -101,7 +102,7 @@ class Game:
                         self.cardPositions[card][slot] = 1
 
         elif self.mode == "upgrade-card":
-            card = parse_upgrade_command(message.content)
+            card = parse_upgrade_command(message.content.lower())
             if card is not None:
                 if card in self.commands:
                     self.commands[card] += 1
@@ -109,7 +110,7 @@ class Game:
                     self.commands[card] = 1
 
         elif self.mode == "shop":
-            command = parse_shop_command(message.content)
+            command = parse_shop_command(message.content.lower())
             if command is not None:
                 if command in self.commands:
                     self.commands[command] += 1
@@ -124,7 +125,7 @@ class Game:
         self.battleWait = 0
         self.wait = wait
 
-    def do_action(self):
+    async def do_action(self):
         if self.wait > 0:
             self.wait -= 1
             return
@@ -146,7 +147,7 @@ class Game:
                 click_safespot()
                 return
 
-            do_menu_command(self.main_select_action(), self)
+            await do_menu_command(self.main_select_action(), self)
             return
 
         elif self.mode == "battle":
@@ -164,12 +165,14 @@ class Game:
 
             card, pos = self.battle_select_action()
             while card is not None:
-                if play_card(card, pos):
-                    self.debug_log("Playing " + card + " at " + pos)
-                    self.type_to_chat("Play " + card + " at " + pos + ". " + BATTLE_COMMAND_PROMPT)
+                self.debug_log("Playing " + card)
+                print("Playing card " + card)
+                if await play_card(card, pos):
+                    await self.type_to_chat("Play " + card + " at " + pos + ". " + BATTLE_COMMAND_PROMPT)
                     self.reset_commands()
                     return
                 card, pos = self.battle_select_action()
+            self.reset_commands()
             return
 
         elif self.mode == "edit-deck":
@@ -200,7 +203,7 @@ class Game:
                     self.type_to_chat("Getting " + command + ". " + MENU_COMMANDS_PROMPT)
                     self.debug_log("Buying " + command + ".")
                     self.reset_commands()
-                    self.mode == "menu"
+                    self.mode == "main"
 
                     return
                 command = self.shop_select_action()
@@ -214,12 +217,15 @@ class Game:
         m = 0
         v = None
         for key in self.commands:
+            self.debug_log("key:" + key + " " + str(self.commands[key]))
             if self.commands[key] > m:
                 m = self.commands[key]
                 v = key
         # self.commands[v] = 0
         if v is not None:
             self.debug_log("Selecting: " + v)
+        else:
+            self.debug_log("Nothing to select")
         return v
 
     def battle_select_action(self):
@@ -238,15 +244,21 @@ class Game:
             if self.commands[key] > bsf:
                 bsf = self.commands[key]
                 card = key
+
+        if card is not None:
+            self.debug_log("Selecting: " + card)
+        else:
+            self.debug_log("No card to select")
         if card is None:
             return None, None
         # get most voted for position for card
         bsf = 0
         pos = None
-        for key in self.cardPositions[card]:
-            if self.cardPositions[card][key] > bsf:
-                bsf = self.cardPositions[card][key]
-                pos = key
+        if card in self.cardPositions:
+            for key in self.cardPositions[card]:
+                if self.cardPositions[card][key] > bsf:
+                    bsf = self.cardPositions[card][key]
+                    pos = key
 
         self.commands[card] = 0  # If cannot play card, we will look for the second best thing
         if pos is None:
@@ -305,4 +317,4 @@ class Game:
 
     def debug_log(self, c):
         if self.debug:
-            self.debugFile.write(str(time.time()) + c + "\n")
+            self.debugFile.write(time.strftime("%H:%M:%S", time.localtime()) + ": " + c + "\n")

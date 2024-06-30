@@ -114,7 +114,7 @@ VALID_CARD_NAMES = [
 
 
 def validate_card_name(card):
-    if card == "knight" or "night":
+    if card == "knight" or card == "night":
         return "knight"
 
     elif card == "archers":
@@ -132,28 +132,28 @@ def validate_card_name(card):
     elif card == "minions":
         return "minions"
 
-    elif card == "balloon" or "ballon" or "baloon":
+    elif card == "balloon" or card == "ballon" or card == "baloon":
         return "balloon"
 
     elif card == "witch":
         return "witch"
 
-    elif card == "barbarians" or "barb" or "barbs":
+    elif card == "barbarians" or card == "barb" or card == "barbs":
         return "barbarians"
 
     elif card == "golem":
         return "golem"
 
-    elif card == "skeletons" or "skeleton" or "larry":
+    elif card == "skeletons" or card == "skeleton" or card == "larry":
         return "skeletons"
 
-    elif card == "valkyrie" or "valk":
+    elif card == "valkyrie" or card == "valk":
         return "valkyrie"
 
-    elif card == "skeleton army" or "skarmy":
+    elif card == "skeleton army" or card == "skarmy":
         return "skeleton army"
 
-    elif card == "bomber" or "barry":
+    elif card == "bomber" or card == "barry":
         return "bomber"
 
     elif card == "musketeer":
@@ -180,7 +180,7 @@ def validate_card_name(card):
     elif card == "hog rider":
         return "hog rider"
 
-    elif card == "minion horde" or "horde":
+    elif card == "minion horde" or card == "horde":
         return "minion horde"
 
     elif card == "ice wizard":
@@ -201,7 +201,7 @@ def validate_card_name(card):
     elif card == "three musketeers":
         return "three musketeers"
 
-    elif card == "lava hound" or "hound":
+    elif card == "lava hound" or card == "hound":
         return "lava hound"
 
     elif card == "ice spirit":
@@ -210,7 +210,7 @@ def validate_card_name(card):
     elif card == "fire spirit":
         return "fire spirit"
 
-    elif card == "miner" or "minor":
+    elif card == "miner" or card == "minor":
         return "miner"
 
     elif card == "sparky":
@@ -219,7 +219,7 @@ def validate_card_name(card):
     elif card == "bowler":
         return "bowler"
 
-    elif card == "lumberjack" or "lumber jack":
+    elif card == "lumberjack" or card == "lumber jack":
         return "lumberjack"
 
     elif card == "battle ram":
@@ -231,7 +231,7 @@ def validate_card_name(card):
     elif card == "ice golem":
         return "ice golem"
 
-    elif card == "mega minion" or "meta minion":
+    elif card == "mega minion" or card == "meta minion":
         return "mega minion"
 
     elif card == "dart goblin":
@@ -240,10 +240,10 @@ def validate_card_name(card):
     elif card == "goblin gang":
         return "goblin gang"
 
-    elif card == "electro wizard" or "e wizard" or "ewizard":
+    elif card == "electro wizard" or card == "e wizard" or card == "ewizard":
         return "electro wizard"
 
-    elif card == "elite barbarians" or "e barbs" or "ebarbs":
+    elif card == "elite barbarians" or card == "e barbs" or card == "ebarbs":
         return "elite barbarians"
 
     elif card == "hunter":
@@ -255,7 +255,7 @@ def validate_card_name(card):
     elif card == "bandit":
         return "bandit"
 
-    elif card == "royal recruits" or "recruits":
+    elif card == "royal recruits" or card == "recruits":
         return "royal recruits"
 
     elif card == "night witch":
@@ -264,7 +264,7 @@ def validate_card_name(card):
     elif card == "bats":
         return "bats"
 
-    elif card == "royal ghost" or "ghost":
+    elif card == "royal ghost" or card == "ghost":
         return "royal ghost"
 
     elif card == "ram rider":
@@ -297,31 +297,31 @@ def validate_card_name(card):
     elif card == "goblin giant":
         return "goblin giant"
 
-    elif card == "fisherman" or "fisher man":
+    elif card == "fisherman" or card == "fisher man":
         return "fisherman"
 
     elif card == "magic archer":
         return "magic archer"
 
-    elif card == "electro dragon" or "edragon" or "edrag" or "e dragon" or "e drag":
+    elif card == "electro dragon" or card == "edragon" or card == "edrag" or card == "e dragon" or card == "e drag":
         return "electro dragon"
 
-    elif card == "firecracker" or "fire cracker":
+    elif card == "firecracker" or card == "fire cracker":
         return "firecracker"
 
-    elif card == "mighty miner" or "mighty minor":
+    elif card == "mighty miner" or card == "mighty minor":
         return "mighty miner"
 
-    elif card == "elixir golem" or "egolem" or "e golem":
+    elif card == "elixir golem" or card == "egolem" or card == "e golem":
         return "elixir golem"
 
-    elif card == "battle healer" or "healer":
+    elif card == "battle healer" or card == "healer":
         return "battle healer"
 
     elif card == "skeleton king":
         return "skeleton king"
 
-    elif card == "archer queen" or "queen":
+    elif card == "archer queen" or card == "queen":
         return "archer queen"
 
     elif card == "golden knight":
@@ -333,7 +333,7 @@ def validate_card_name(card):
     elif card == "skeleton dragons":
         return "skeleton dragons"
 
-    elif card == "mother witch" or "mother":
+    elif card == "mother witch" or card == "mother":
         return "mother witch"
 
     elif card == "electro spirit":
@@ -354,7 +354,7 @@ def validate_card_name(card):
     elif card == "goblin hut":
         return "goblin hut"
 
-    elif card == "mortar" or "morter" or "mortor":
+    elif card == "mortar" or card == "morter" or card == "mortor":
         return "mortar"
 
     elif card == "inferno tower":
@@ -366,31 +366,31 @@ def validate_card_name(card):
     elif card == "barbarian hut":
         return "barbarian hut"
 
-    elif card == "tesla" or "hidden telsa":
+    elif card == "tesla" or card == "hidden telsa":
         return "tesla"
 
-    elif card == "elixir pump":
+    elif card == "elixir pump" or card == "pump":
         return "elixir pump"
 
-    elif card == "x-bow" or "xbow":
+    elif card == "x-bow" or card == "xbow":
         return "x-bow"
 
-    elif card == "tombstone" or "tomb stone":
+    elif card == "tombstone" or card == "tomb stone":
         return "tombstone"
 
     elif card == "furnace":
         return "furnace"
 
-    elif card == "goblin cage" or "cage":
+    elif card == "goblin cage" or card == "cage":
         return "goblin cage"
 
-    elif card == "goblin drill" or "drill":
+    elif card == "goblin drill" or card == "drill":
         return "goblin drill"
 
     elif card == "fireball":
         return "fireball"
 
-    elif card == "arrows" or "arrow":
+    elif card == "arrows" or card == "arrow":
         return "arrows"
 
     elif card == "rage":
@@ -417,7 +417,7 @@ def validate_card_name(card):
     elif card == "poison":
         return "poison"
 
-    elif card == "graveyard" or "grave yard":
+    elif card == "graveyard" or card == "grave yard":
         return "graveyard"
 
     elif card == "log":
@@ -429,7 +429,7 @@ def validate_card_name(card):
     elif card == "clone":
         return "clone"
 
-    elif card == "earthquake" or "earth quake":
+    elif card == "earthquake" or card == "earth quake":
         return "earthquake"
 
     elif card == "barbarian barrel":
@@ -438,10 +438,10 @@ def validate_card_name(card):
     elif card == "heal spirit":
         return "heal spirit"
 
-    elif card == "giant snowball" or "snowball":
+    elif card == "giant snowball" or card == "snowball":
         return "giant snowball"
 
-    elif card == "royal delivery" or "delivery":
+    elif card == "royal delivery" or card == "delivery":
         return "royal delivery"
 
     elif card == "void":
