@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1f260c28-9166-479c-bcd7-4bc922d7c177" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../src/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/twitch-plays-cr-src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/blueStacks.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/edit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/emotes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/help.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/play.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/shop.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/unlock.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/actions/upgrade.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/chests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/editDeck.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/emotes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/menuActions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/safespot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/scroll.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/util/beep.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/calibrate/util/mouse-location.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/model/game.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/util/click.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/util/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/util/twitch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/values/cards.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/values/positions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pythonProject5.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/blueStacks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/edit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/emotes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/help.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/menu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/play.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/shop.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/unlock.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/upgrade.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/beep.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/chests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/editDeck.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/emotes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/menuActions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/mouse-location.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/safespot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/calibrate/scroll.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/game.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/click.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/twitch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/values/cards.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/values/emote-cords.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/values/positions.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2h4vuvR4qSiufF4clRE5y6G3AMF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.chests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.editDeck.executor&quot;: &quot;Run&quot;,
+    &quot;Python.emotes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.menuActions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mouse-location.executor&quot;: &quot;Run&quot;,
+    &quot;Python.python chest.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.safespot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scroll.executor&quot;: &quot;Run&quot;,
+    &quot;Python.token-twitch.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tower-game.executor&quot;: &quot;Run&quot;,
+    &quot;Python.twitch.executor&quot;: &quot;Run&quot;,
+    &quot;Python.websocket.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jerem/OneDrive/Desktop/twitch-plays-clash-royale/pythonProject5/main.py&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jerem\OneDrive\Desktop\twitch-plays-clash-royale\pythonProject5\calibrate\util" />
+      <recent name="C:\Users\Jerem\OneDrive\Desktop\twitch-plays-clash-royale\pythonProject5\util" />
+      <recent name="C:\Users\Jerem\OneDrive\Desktop\twitch-plays-clash-royale\pythonProject5\calibrate" />
+      <recent name="C:\Users\Jerem\OneDrive\Desktop\twitch-plays-clash-royale\pythonProject5\model" />
+      <recent name="C:\Users\Jerem\OneDrive\Desktop\twitch-plays-clash-royale\pythonProject5\conf" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.python chest.py">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="twitch-plays-cr-src" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="python chest.py" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="twitch-plays-cr-src" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="chest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.python chest.py" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1f260c28-9166-479c-bcd7-4bc922d7c177" name="Changes" comment="" />
+      <created>1716866389304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716866389304</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../src/.venv/Lib/site-packages/twitchio/client.py</url>
+          <line>190</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../src/.venv/Lib/site-packages/twitchio/websocket.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../src/main.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

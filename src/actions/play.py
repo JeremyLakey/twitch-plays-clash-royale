@@ -6,6 +6,7 @@ from values.cards import validate_card_name
 from values.positions import VALID_POSITIONS
 import time
 
+
 async def play_card(card, pos):
     try:
         print(f"Find ./images/cards/{card}.png")
